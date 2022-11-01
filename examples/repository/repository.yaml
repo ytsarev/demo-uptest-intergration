@@ -4,7 +4,7 @@ metadata:
   name: hello-crossplane
 spec:
   forProvider:
-    description: "Managed with Crossplane Github Provider (generated with Upjet)"
+    description: "CI TEST: Managed with Crossplane Github Provider (generated with Upjet)"
     visibility: public
     template:
       - owner: upbound
