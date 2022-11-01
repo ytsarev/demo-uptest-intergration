@@ -179,3 +179,16 @@ crossplane.help:
 help-special: crossplane.help
 
 .PHONY: crossplane.help help-special
+
+# ====================================================================================
+# End to End Testing
+CROSSPLANE_NAMESPACE = upbound-system
+-include build/makelib/local.xpkg.mk
+-include build/makelib/controlplane.mk
+
+uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
+	@$(INFO) running automated tests
+	@KUBECTL=$(KUBECTL) KUTTL=$(KUTTL) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --setup-script=cluster/test/setup.sh || $(FAIL)
+	@$(OK) running automated tests
+
+e2e: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME) uptest
